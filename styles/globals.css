@@ -1,16 +1,31 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;400;600;700&family=Righteous&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --font-family: 'Josefin+Sans';
+  --clr-pink:#FFBBBB;
+  --clr-light: #FDF6EC;
+  --clr-green: #97C4B8;
+  --clr-yellow: #FFEF82;
+  --clr-blue:#7FB5FF;
+  --clr-red: #FF6B6B;
+  --clr-selection-bg : #FF6363;
+  --clr-selection-text: #FAF5E4;
+  --clr-background : #3A3845;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+  background: var(--clr-background);
 }
 
-* {
-  box-sizing: border-box;
+::selection{
+  background: var(--clr-selection-bg);
+  color: var(--clr-selection-text);
 }
