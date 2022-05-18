@@ -30,7 +30,7 @@ export default function Home() {
       <div className="h-full w-full container max-w-5xl mx-auto flex flex-col items-center pt-4">
         <div className="flex flex-col items-center max-w-4xl w-full">
           <Link href="/mint" passHref>
-            <a className="font-righteous mt-16 inline-flex items-center px-3 oy-2 text-sm md:text-2xl font-medium text-center rounded text-brand-pink bg-red-400 hover:text-red-400 hover:bg-brand-pink ">
+            <a className="font-righteous font-light mt-16 inline-flex items-center px-4 oy-2 md:text-2xl text-center rounded text-brand-pink bg-red-400 hover:text-red-400 hover:bg-brand-pink pt-4 pb-4">
               Go to minting page
               <img src="/images/arrow.gif " className="w-15 h-7" />
             </a>

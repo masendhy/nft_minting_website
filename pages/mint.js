@@ -1,4 +1,41 @@
+import { useState, useEffect } from 'react'
+import { initOnboard } from '../utils/onboard'
+
 export default function Mint() {
+  const [onboard, setOnboard] = useState(null)
+  const [walletAddress, setWalletAddress] = useState('')
+
+  useEffect(() => {
+    const onboardData = initOnboard({
+      address: (address) => setWalletAddress(address ? address : ''),
+      wallet: (wallet) => {
+        if (wallet.provider) {
+          window.localStorage.setItem('selectedWallet', wallet.name)
+        } else {
+          window.localStorage.removeItem('selectedWallet')
+        }
+      }
+    })
+    setOnboard(onboardData)
+  }, [])
+
+  const previouslySelectedWallet =
+    typeof window !== 'undefined' &&
+    window.localStorage.getItem('selectedWallet')
+
+  useEffect(() => {
+    if (previouslySelectedWallet !== null && onboard) {
+      onboard.walletSelect(previouslySelectedWallet)
+    }
+  }, [onboard, previouslySelectedWallet])
+
+  const connectWalletHandler = async () => {
+    const walletSelected = await onboard.walletSelect()
+    if (walletSelected) {
+      await onboard.walletCheck()
+      window.location.reload(true)
+    }
+  }
   return (
     <div className="min-h-screen h-full w-full overflow-hidden flex flex-col items-center justify-center bg-brand-background">
       <div className="relative w-full h-full flex flex-col items-center justify-center">
@@ -12,7 +49,9 @@ export default function Mint() {
               Pre Sale
             </h1>
             <h3 className="font-righteous text-sm text-brand-green tracking-widest break-all ...">
-              0x7399E31089C06F7b4111BF166E578Ff90bbdfa26
+              {walletAddress
+                ? walletAddress.slice(0, 8) + '...' + walletAddress.slice(-4)
+                : ''}
             </h3>
 
             <div className="flex flex-col md:flex-row md:space-x-14 w-full mt-10 md:mt-14">
@@ -70,7 +109,7 @@ export default function Mint() {
                 </p>
                 <div className="font-righteous border-t border-b py-4 mt-16 w-full">
                   <div className="w-full text-l flex items-center justify-between text-brand-green ">
-                    <p>Total</p>
+                    <p>TOTAL</p>
                     <div className="flex items-center space-x-3">
                       <p>0.01</p>
                       <span className="text-brand-yellow">+ GAS</span>
@@ -78,11 +117,19 @@ export default function Mint() {
                   </div>
                 </div>
 
-                {/* Mint Button */}
-
-                <button className="font-righteous mt-12 w-full text-brand-light rounded-md bg-gradient-to-br from-brand-pink to-brand-red shadow-lg hover:shadow-brand-pink mx-4 tracking-widest">
-                  Connect Wallet
-                </button>
+                {/* Mint Button  && Connect Wallet Button*/}
+                {walletAddress ? (
+                  <button className="font-righteous text-2xl mt-12 w-full text-brand-light rounded-md bg-gradient-to-br from-brand-pink to-brand-red shadow-lg hover:shadow-brand-pink mx-4 pt-4 pb-4 tracking-widest">
+                    Mint
+                  </button>
+                ) : (
+                  <button
+                    className="font-righteous text-2xl mt-12 w-full text-brand-light rounded-md bg-gradient-to-br from-brand-pink to-brand-red shadow-lg hover:shadow-brand-pink mx-4 pt-4 pb-4 tracking-widest"
+                    onClick={connectWalletHandler}
+                  >
+                    Connect Wallet
+                  </button>
+                )}
               </div>
             </div>
             {/* status */}
@@ -94,7 +141,7 @@ export default function Mint() {
             {/* Contract Address */}
 
             <div className="border-t border-gray-300 flex flex-col items-center mt-10 py-2 w-full ">
-              <h3 className="font-righteous text-brand-pink mt-2 tet-2x">
+              <h3 className="font-righteous text-brand-pink mt-2 text-2xl">
                 Contract Address
               </h3>
               <a
