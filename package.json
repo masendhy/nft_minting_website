@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.6.0",
     "@web3-onboard/coinbase": "^2.0.0",
     "@web3-onboard/core": "^2.2.7",
     "@web3-onboard/fortmatic": "^2.0.2",
@@ -16,6 +19,10 @@
     "@web3-onboard/react": "^2.1.6",
     "@web3-onboard/walletconnect": "^2.0.1",
     "bnc-onboard": "^1.38.2",
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "ethereum-waffle": "^3.4.4",
+    "ethers": "^5.6.6",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0"
@@ -24,6 +31,7 @@
     "autoprefixer": "^10.4.7",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
+    "hardhat": "^2.9.6",
     "postcss": "^8.4.13",
     "tailwindcss": "^3.0.24"
   }
